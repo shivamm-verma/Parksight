@@ -18,24 +18,31 @@ import threading
 from typing import Optional, Literal
 
 import pandas as pd
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-import model.hotspot_detection as hs
-import model.build_satellite_heatmap as heatmap_mod
+import hotspot_detection as hs
+import build_satellite_heatmap as heatmap_mod
 import parking_api.old_temporal_pattern_analysis as temporal
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
+# Load environment variables from .env file
+load_dotenv()
+
 DATASET_PATH = os.environ.get("DATASET_PATH", "dataset.csv")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "outputs")
+API_HOST = os.environ.get("API_HOST", "127.0.0.1")
+API_PORT = int(os.environ.get("API_PORT", "8000"))
+ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 app = FastAPI(title="Parking Congestion Intelligence API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],          # tighten to your frontend's origin in production
+    allow_origins=ALLOWED_ORIGINS if ALLOWED_ORIGINS != ["*"] else ["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
