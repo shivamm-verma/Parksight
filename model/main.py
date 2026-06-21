@@ -9,12 +9,13 @@ Run:
     uvicorn main:app --reload --port 8000
 
 Dataset:
-    Expects a CSV at DATASET_PATH (default "dataset.csv", same prose-header
+    Expects a CSV at DATASET_PATH (default "Dataset.csv", same prose-header
     format as the sample/full dataset). Override with env var DATASET_PATH.
 """
 
 import os
 import threading
+from datetime import datetime, timezone
 from typing import Optional, Literal
 
 import pandas as pd
@@ -25,13 +26,13 @@ from fastapi.staticfiles import StaticFiles
 
 import hotspot_detection as hs
 import build_satellite_heatmap as heatmap_mod
-import parking_api.old_temporal_pattern_analysis as temporal
+import temporal_pattern_analysis as temporal
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
 # Load environment variables from .env file
 load_dotenv()
 
-DATASET_PATH = os.environ.get("DATASET_PATH", "dataset.csv")
+DATASET_PATH = os.environ.get("DATASET_PATH", "Dataset.csv")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "outputs")
 API_HOST = os.environ.get("API_HOST", "127.0.0.1")
 API_PORT = int(os.environ.get("API_PORT", "8000"))
@@ -39,6 +40,11 @@ ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 app = FastAPI(title="Parking Congestion Intelligence API", version="1.0.0")
+
+@app.on_event("startup")
+def startup():
+    print("DATASET_PATH =", DATASET_PATH)
+    print("Exists =", os.path.exists(DATASET_PATH))
 
 app.add_middleware(
     CORSMiddleware,
@@ -63,6 +69,10 @@ _lock = threading.RLock()  # RLock: several cache getters call each other while
 
 def _file_url(filename: str) -> str:
     return f"/files/{filename}"
+
+
+def _iso_now_utc() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 # ---- temporal module cache ----
@@ -123,9 +133,42 @@ def health():
     return {"status": "ok", "dataset_path": DATASET_PATH, "dataset_exists": os.path.exists(DATASET_PATH)}
 
 
+@app.get("/predict")
+def predict():
+    """Dashboard-friendly summary payload used by the frontend's main fetch."""
+    df, hotspots = get_hotspot_result("dbscan", 50, 8, 10)
+    top_hotspots = hotspots.head(5).copy()
+
+    if top_hotspots.empty:
+        hotspot_rows = []
+    else:
+        max_count = max(int(top_hotspots["violation_count"].max()), 1)
+        hotspot_rows = []
+        for _, row in top_hotspots.iterrows():
+            hotspot_rows.append(
+                {
+                    "zone": row.get("matched_junction") or f"Hotspot #{int(row['rank'])}",
+                    "lat": round(float(row["center_lat"]), 6),
+                    "lng": round(float(row["center_lon"]), 6),
+                    "violationCount": int(row["violation_count"]),
+                    "congestionImpact": round(int(row["violation_count"]) / max_count, 2),
+                    "topViolationTypes": row.get("top_violation_types", {}),
+                    "policeStations": row.get("police_stations", []),
+                }
+            )
+
+    return {
+        "source": os.path.basename(DATASET_PATH),
+        "method": "dbscan",
+        "hotspots": hotspot_rows,
+        "updatedAt": _iso_now_utc(),
+        "totalRecords": len(df),
+    }
+
+
 @app.post("/cache/clear")
 def clear_cache():
-    """Call after dataset.csv is updated/replaced so the next request re-reads it."""
+    """Call after Dataset.csv is updated/replaced so the next request re-reads it."""
     with _lock:
         _cache.clear()
     return {"cleared": True}
