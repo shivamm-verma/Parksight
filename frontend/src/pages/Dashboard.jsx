@@ -36,22 +36,22 @@ const DATASET_LABEL = "jan to may police violation_anonymized.csv";
 // The Vite dev server serves these files directly from SAMPLE_OUTPUTS at
 // /sample-outputs/*, so the dashboard can reference them without copying.
 const ZONE_IMAGES = [
-  { zone: "All zones", file: "/sample-outputs/heatmap_all.png" },
-  { zone: "Arterial", file: "/sample-outputs/heatmap_arterial.png" },
-  { zone: "Commercial", file: "/sample-outputs/heatmap_commercial.png" },
-  { zone: "Metro", file: "/sample-outputs/heatmap_metro.png" },
-  { zone: "Residential", file: "/sample-outputs/heatmap_residential.png" },
+  { zone: "All zones", file: "output-images/heatmap_all.png" },
+  { zone: "Arterial", file: "output-images/heatmap_arterial.png" },
+  { zone: "Commercial", file: "output-images/heatmap_commercial.png" },
+  { zone: "Metro", file: "output-images/heatmap_metro.png" },
+  { zone: "Residential", file: "output-images/heatmap_residential.png" },
   {
     zone: "School / Hospital",
-    file: "/sample-outputs/heatmap_school_hospital.png",
+    file: "output-images/heatmap_school_hospital.png",
   },
 ];
 
 const TREND_IMAGES = [
-  { title: "Daily violation trend", file: "/sample-outputs/daily_trend.png" },
+  { title: "Daily violation trend", file: "output-images/daily_trend.png" },
   {
     title: "Violations by vehicle & hour",
-    file: "/sample-outputs/vehicle_hour.png",
+    file: "output-images/vehicle_hour.png",
   },
 ];
 
