@@ -516,7 +516,7 @@ export default function Dashboard() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-[12px] font-semibold tracking-[0.1em] text-[var(--red)] uppercase">
-              Input dataset · fixed
+              Input dataset · static
             </p>
             <p className="mt-1 text-[15px] font-medium text-[var(--ink)] truncate">
               {DATASET_LABEL}
