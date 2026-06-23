@@ -23,13 +23,13 @@ const FEATURES = [
 
 export default function FeatureCards() {
   return (
-    <section className="bg-white py-24 px-6">
+    <section className="bg-white py-16 sm:py-24 px-5 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <p className="text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
+        <div className="max-w-2xl mb-10 sm:mb-16">
+          <p className="text-[12px] sm:text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
             Platform
           </p>
-          <h2 className="text-[36px] sm:text-[44px] font-semibold tracking-tight leading-[1.05] text-[var(--ink)]">
+          <h2 className="text-[28px] sm:text-[44px] font-semibold tracking-tight leading-[1.05] text-[var(--ink)]">
             From patrol-based guessing<br className="hidden sm:block" /> to targeted enforcement.
           </h2>
         </div>
@@ -38,7 +38,7 @@ export default function FeatureCards() {
           {FEATURES.map(({ icon: Icon, title, desc, tag }) => (
             <div
               key={title}
-              className="group rounded-3xl border border-black/[0.06] p-8 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300"
+              className="group rounded-3xl border border-black/[0.06] p-6 sm:p-8 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-between">
                 <div className="w-11 h-11 rounded-2xl bg-[var(--grey-bg)] flex items-center justify-center">

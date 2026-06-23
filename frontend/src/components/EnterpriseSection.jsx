@@ -8,13 +8,13 @@ const CARDS = [
 
 export default function EnterpriseSection() {
   return (
-    <section className="bg-white py-24 px-6">
+    <section className="bg-white py-16 sm:py-24 px-5 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <p className="text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
+        <div className="max-w-2xl mb-10 sm:mb-16">
+          <p className="text-[12px] sm:text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
             For Enforcement Teams
           </p>
-          <h2 className="font-impact text-[34px] sm:text-[42px] leading-[1.05] text-[var(--ink)]">
+          <h2 className="font-impact text-[28px] sm:text-[42px] leading-[1.05] text-[var(--ink)]">
             BUILT FOR TRAFFIC POLICE
           </h2>
         </div>
@@ -23,7 +23,7 @@ export default function EnterpriseSection() {
           {CARDS.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="rounded-3xl bg-[var(--grey-bg)] p-8 hover:-translate-y-1 transition-transform duration-300"
+              className="rounded-3xl bg-[var(--grey-bg)] p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300"
             >
               <div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center mb-5">
                 <Icon className="w-5 h-5 text-[var(--red)]" strokeWidth={2} />

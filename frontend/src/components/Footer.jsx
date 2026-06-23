@@ -7,9 +7,9 @@ const COLUMNS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1d1d1f] text-[#a1a1a6] pt-16 pb-8 px-6">
+    <footer className="bg-[#1d1d1f] text-[#a1a1a6] pt-12 sm:pt-16 pb-8 px-5 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
           {COLUMNS.map((col) => (
             <div key={col.heading}>
               <h4 className="text-white text-[13px] font-semibold mb-4">{col.heading}</h4>

@@ -1,6 +1,7 @@
 import { Network, Activity, Database } from 'lucide-react'
 
-const DATASET_URL = import.meta.env.VITE_INPUT_DATA
+const DATASET_URL =
+  'https://uc.hackerearth.com/he-public-ap-south-1/jan%20to%20may%20police%20violation_anonymized791b166.csv'
 
 const POINTS = [
   { icon: Network, text: 'REST API, one endpoint for hotspot + impact data' },
@@ -10,16 +11,16 @@ const POINTS = [
 
 export default function DevSection() {
   return (
-    <section className="bg-[var(--grey-bg)] py-24 px-6">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <section className="bg-[var(--grey-bg)] py-16 sm:py-24 px-5 sm:px-6">
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <div>
-          <p className="text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
+          <p className="text-[12px] sm:text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
             Developers
           </p>
-          <h2 className="text-[36px] sm:text-[44px] font-semibold tracking-tight leading-[1.05] text-[var(--ink)]">
+          <h2 className="text-[28px] sm:text-[44px] font-semibold tracking-tight leading-[1.05] text-[var(--ink)]">
             Built to drop into your stack.
           </h2>
-          <p className="mt-5 text-[18px] text-[var(--ink-soft)] leading-relaxed max-w-md">
+          <p className="mt-4 sm:mt-5 text-[15px] sm:text-[18px] text-[var(--ink-soft)] leading-relaxed max-w-md">
             The model reads from one fixed source — the anonymized police violation
             dataset below — and a FastAPI route serves hotspot + impact results to
             this dashboard.

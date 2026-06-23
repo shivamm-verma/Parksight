@@ -9,16 +9,16 @@ const STATS = [
 
 export default function StatsSection() {
   return (
-    <section id="stats" className="bg-[var(--grey-bg)] py-24 px-6">
+    <section id="stats" className="bg-[var(--grey-bg)] py-16 sm:py-24 px-5 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <p className="text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
+        <div className="max-w-2xl mb-10 sm:mb-16">
+          <p className="text-[12px] sm:text-[13px] font-semibold tracking-[0.18em] text-[var(--red)] uppercase mb-4">
             From Raw Records to Risk
           </p>
-          <h2 className="font-impact text-[34px] sm:text-[42px] leading-[1.05] text-[var(--ink)]">
+          <h2 className="font-impact text-[28px] sm:text-[42px] leading-[1.05] text-[var(--ink)]">
             VIOLATIONS, QUANTIFIED
           </h2>
-          <p className="mt-5 text-[18px] text-[var(--ink-soft)] leading-relaxed">
+          <p className="mt-4 sm:mt-5 text-[15px] sm:text-[18px] text-[var(--ink-soft)] leading-relaxed">
             Illustrative figures in the style of what the model surfaces — every
             number below is grounded in the same anonymized violation dataset
             used by the dashboard.
