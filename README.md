@@ -18,6 +18,7 @@ and quantifies their congestion impact, for targeted traffic enforcement.
 ## Getting started
 
 ```bash
+cd frontend
 npm install
 npm run dev
 ```
